@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Noto Sans KR", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 500;
+}
+
+select {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 500;
+}
+
+option {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 500;
+}
