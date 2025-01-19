@@ -42,9 +42,11 @@ export default function Home() {
     try {
       const response = await axios.get(apiproxy);
       const data = response.data;
+      console.log("response", response);
       console.log("data", data);
       setAllDevices(data);
       setFilteredDevices(data);
+      console.log("allDevices", allDevices);
     } catch (error) {
       console.error("Error fetching devices:", error);
     } finally {
