@@ -87,11 +87,11 @@ export default defineConfig(({ command }) => {
         { find: "@", replacement: "/src" },
       ],
     },
-    define: {
-      // 새로 추가
-      "import.meta.env.VITE_API_URL": JSON.stringify(
-        isDevelopment ? `http://${localNetworkIp}:3002/api` : "/api"
-      ),
-    },
+    // define: {
+    //   // 새로 추가
+    //   "import.meta.env.VITE_API_URL": JSON.stringify(
+    //     isDevelopment ? `http://${localNetworkIp}:3002/api` : "/api"
+    //   ),
+    // },
   };
 });
