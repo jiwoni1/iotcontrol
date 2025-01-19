@@ -7,21 +7,6 @@ import os from "os"; // 네트워크 인터페이스 정보 가져오기
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   const isDevelopment = command === "serve"; // 'serve'는 개발 서버 실행 시 사용
-  // 현재 머신의 네트워크 IP 가져오기
-  const getLocalNetworkIp = () => {
-    const interfaces = os.networkInterfaces();
-    for (const interfaceName in interfaces) {
-      const iface = interfaces[interfaceName];
-      for (const alias of iface) {
-        if (alias.family === "IPv4" && !alias.internal) {
-          return alias.address; // 로컬 네트워크 IP
-        }
-      }
-    }
-    return "localhost"; // 기본값
-  };
-
-  const localNetworkIp = getLocalNetworkIp();
   return {
     plugins: [
       isDevelopment && mkcert(), // 개발 환경에서만 mkcert 활성화
@@ -73,14 +58,6 @@ export default defineConfig(({ command }) => {
     server: {
       https: isDevelopment, // HTTPS는 개발 환경에서만 활성화
       host: true,
-      proxy: {
-        "/api": {
-          target: `http://${localNetworkIp}:3002`,
-          changeOrigin: true,
-          secure: false,
-          rewrite: (path) => path.replace(/^\/api/, "/api"), // 경로 재작성
-        },
-      },
     },
     resolve: {
       alias: [
@@ -88,11 +65,5 @@ export default defineConfig(({ command }) => {
         { find: "@", replacement: "/src" },
       ],
     },
-    // define: {
-    //   // 새로 추가
-    //   "import.meta.env.VITE_API_URL": JSON.stringify(
-    //     isDevelopment ? `http://${localNetworkIp}:3002/api` : "/api"
-    //   ),
-    // },
   };
 });
