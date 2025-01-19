@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.iotcontrol.twa",
+        "sha256_cert_fingerprints": ["9A:16:45:4F:31:4C:58:53:FF:10:C3:F1:D1:57:19:74:1C:05:C5:6C:DA:94:03:47:16:C6:19:97:5E:E7:5A:76"]
+      }
+    }]
