@@ -35,7 +35,10 @@ export default function Home() {
     ], // 공용 공간
   };
 
-  const apiproxy = "/api";
+  // const apiproxy = "/api";
+
+  // 환경에 따라 API URL 설정
+  const apiproxy = import.meta.env.VITE_API_URL;
 
   // API 요청
   const fetchDevices = async () => {
