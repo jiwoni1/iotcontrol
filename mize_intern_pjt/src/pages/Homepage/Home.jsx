@@ -44,9 +44,9 @@ export default function Home() {
   // API 요청
   const fetchDevices = async () => {
     try {
-      const response = await axios.get(apiproxy);
+      const response = await axios.get(api);
       const data = response.data;
-      console.log("response", response);
+      console.log("response111", response);
       console.log("data", data);
       setAllDevices(data);
       setFilteredDevices(data);
