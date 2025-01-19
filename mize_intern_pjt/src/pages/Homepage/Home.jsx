@@ -36,7 +36,7 @@ export default function Home() {
   };
 
   // const apiproxy = "/api/devices"; // API URL 설정
-  const api = "http://localhost:3000/api";
+  const api = "http://localhost:3002/api";
 
   // 환경에 따라 API URL 설정
   const apiproxy = import.meta.env.VITE_API_URL;
