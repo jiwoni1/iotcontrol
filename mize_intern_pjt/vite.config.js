@@ -78,6 +78,7 @@ export default defineConfig(({ command }) => {
           target: `http://${localNetworkIp}:3002`,
           changeOrigin: true,
           secure: false,
+          rewrite: (path) => path.replace(/^\/api/, "/api"), // 경로 재작성
         },
       },
     },
