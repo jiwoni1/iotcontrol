@@ -93,13 +93,13 @@ export default function Home() {
       <Styled.Header>
         <Styled.Title>{title}</Styled.Title>
       </Styled.Header>
-      {/* <Filter
+      <Filter
         roomInfo={roomInfo}
         selectedFilter={selectedFilter}
         onFilterChange={handleFilterChange}
-      /> */}
+      />
       {/* 로딩 중일 때 로딩 표시 */}
-      {/* {loading ? <div>로딩중</div> : <Devices devices={filteredDevices} />} */}
+      {loading ? <div>로딩중</div> : <Devices devices={filteredDevices} />}
       {/* <Devices devices={filteredDevices} /> */}
     </Styled.HomeWrapper>
   );
