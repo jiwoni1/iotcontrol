@@ -37,7 +37,7 @@ export default function Home() {
 
   // const apiproxy = "/api/devices"; // API URL 설정
   const api = "https://localhost:3002/api";
-  const apimobile = "https://192.168.0.21:3002/api";
+  const apimobile = "https://192.168.0.90:3002/api";
 
   // 환경에 따라 API URL 설정
   const apiproxy = import.meta.env.VITE_API_URL;
