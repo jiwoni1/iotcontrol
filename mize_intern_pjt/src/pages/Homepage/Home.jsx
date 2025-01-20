@@ -59,15 +59,15 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    fetchDevices(); // 처음에 호출
+  // useEffect(() => {
+  //   fetchDevices(); // 처음에 호출
 
-    const interval = setInterval(() => {
-      fetchDevices(); // 10초마다 다시 호출
-    }, 10000);
+  //   const interval = setInterval(() => {
+  //     fetchDevices(); // 10초마다 다시 호출
+  //   }, 10000);
 
-    return () => clearInterval(interval); // 컴포넌트가 사라질 때 interval 제거
-  }, []);
+  //   return () => clearInterval(interval); // 컴포넌트가 사라질 때 interval 제거
+  // }, []);
 
   // // API 연결 전 테스트
   // useEffect(() => {
