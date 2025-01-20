@@ -20,7 +20,6 @@ export default function Login() {
       ...prev,
       [e.target.name]: e.target.value,
     }));
-    // console.log(loginInput);
   };
 
   const handleClearUserId = (e) => {

@@ -5,8 +5,8 @@ import { PALETTE } from "../../styles/colors";
 export const Wrapper = styled.div`
   box-sizing: border-box;
   width: 100%;
-  height: 100%;
-  padding: 40% 10%;
+  height: 100vh;
+  padding: 20% 10%;
   display: flex;
   flex-direction: column;
   align-items: center;

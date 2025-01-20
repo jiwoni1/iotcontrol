@@ -94,12 +94,12 @@ export default function PolarCard({ data, name, agt, me }) {
         updateSwitchState(index, newState);
       } else {
         console.error("전등 POST API 호출 실패", response.data);
-        setErrorMessage(`전등이 작동하지 않습니다. (${me})`);
+        setErrorMessage(`${name}이 작동하지 않습니다.`);
         setShowPopup(true);
       }
     } catch (error) {
       console.log("전등 POST API 에러", error);
-      setErrorMessage(`전등이 작동하지 않습니다. (${me})`);
+      setErrorMessage(`${name}이 작동하지 않습니다.`);
       setShowPopup(true);
     }
   };
