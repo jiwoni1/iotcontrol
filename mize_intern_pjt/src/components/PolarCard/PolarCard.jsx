@@ -7,7 +7,7 @@ import ErrorPopup from "../ErrorPopup/ErrorPopup";
 
 export default function PolarCard({ data, name, agt, me }) {
   // P3가 있으면 2구, 없으면 1구구
-  const isDual = data.P3 !== undefined;
+  const isDual = data.P2 !== undefined;
   // 1구 2구에 따라 분리
   const initalState = isDual
     ? [
