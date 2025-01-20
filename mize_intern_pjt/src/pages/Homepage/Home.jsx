@@ -69,6 +69,10 @@ export default function Home() {
   //   return () => clearInterval(interval); // 컴포넌트가 사라질 때 interval 제거
   // }, []);
 
+  useEffect(() => {
+    fetchDevices(); // 처음에 호출
+  }, []);
+
   // // API 연결 전 테스트
   // useEffect(() => {
   //   setAllDevices(data);
