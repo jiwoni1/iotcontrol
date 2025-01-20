@@ -57,6 +57,18 @@ export default function PolarCard({ data, name, agt, me }) {
   //     }
   //   };
 
+  // 상태 업데이트
+  const updateSwitchState = (index, newState) => {
+    setIsOn((prevState) => {
+      const updatedStates = [...prevState];
+      updatedStates[index] = {
+        ...updatedStates[index],
+        state: newState,
+      };
+      return updatedStates;
+    });
+  };
+
   // Polar on/off API
   const sendPolarControl = async (index) => {
     const url = "http://localhost:3005/controller";
@@ -79,21 +91,14 @@ export default function PolarCard({ data, name, agt, me }) {
         console.log("전등 POST API 테스트 성공", response.data);
 
         // 상태 업데이트 5초마다 + 즉각 반영
-        setIsOn((prevState) => {
-          const updatedStates = [...prevState];
-          updatedStates[index] = {
-            ...updatedStates[index],
-            state: newState,
-          };
-          return updatedStates;
-        });
+        updateSwitchState(index, newState);
       } else {
         console.error("전등 POST API 호출 실패", response.data);
         setErrorMessage("전등이 작동하지 않습니다.");
         setShowPopup(true);
       }
-    } catch (eroor) {
-      console.log("전등 POST API 에러", eroor);
+    } catch (error) {
+      console.log("전등 POST API 에러", error);
       setErrorMessage("전등이 작동하지 않습니다.");
       setShowPopup(true);
     }
