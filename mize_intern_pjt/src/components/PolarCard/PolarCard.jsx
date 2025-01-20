@@ -12,50 +12,13 @@ export default function PolarCard({ data, name, agt, me }) {
   const initalState = isDual
     ? [
         { subName: "스위치1", state: data.P1?.val === 1 },
-        { subName: "스위치2", state: data.P3?.val === 1 },
+        { subName: "스위치2", state: data.P2?.val === 1 },
       ]
     : [{ subName: "스위치1", state: data.P1?.val === 1 }];
 
   const [isOn, setIsOn] = useState(initalState);
   const [showPopup, setShowPopup] = useState(false); // 에러 팝업 표시 여부
   const [errorMessage, setErrorMessage] = useState(""); // API 연결 안됳 시 에러메시지
-
-  // // status 관리
-  // // 해당 번호의 status를 바꿈
-  // const handleButton = (index) => {
-  //   setIsOn((prevState) => {
-  //     const updatedStates = [...prevState];
-  //     updatedStates[index] = {
-  //       ...updatedStates[index],
-  //       state: !updatedStates[index].state,
-  //     };
-  //     return updatedStates;
-  //   });
-  // };
-
-  // API 연결
-  //   const handleToggle = async (index) => {
-  //     const targetSwitch = index === 0 ? "P1" : "P2"; // 대상 스위치 결정
-
-  //     try {
-  //       // API 호출
-  //       // API 주소 뒤에 P1, P2 붙이는 걸로로
-  //       const response = await fetch(`/api/device/${me}/polar`, {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify({}),
-  //       });
-
-  //       if (!response.ok) {
-  //         throw new Error("Failed to toggle switch");
-  //       }
-
-  //       // 상태 업데이트
-  //       handleButton(index);
-  //     } catch (error) {
-  //       console.error("Error toggling switch:", error);
-  //     }
-  //   };
 
   // 상태 업데이트
   const updateSwitchState = (index, newState) => {
@@ -72,7 +35,7 @@ export default function PolarCard({ data, name, agt, me }) {
   // Polar on/off API
   const sendPolarControl = async (index) => {
     const url = "http://localhost:3008/control";
-    const targetSwitch = index === 0 ? "P1" : "P3"; // 대상 스위치 결정
+    const targetSwitch = index === 0 ? "P1" : "P2"; // 대상 스위치 결정
     const newState = !isOn[index].state; // 현재 상태의 반대로
     const type = newState ? "0x81" : "0x80";
     const newtype = newState ? "129" : "128";
