@@ -119,8 +119,8 @@ export default function PolarCard({ data, name, agt, me }) {
                   message={errorMessage}
                   onClose={() => setShowPopup(false)} // 팝업 닫기
                 />
-              )}
-              <Styled.Icon src={lightbulb} alt={polar.subName} /> */}
+              )} */}
+              <Styled.Icon src={lightbulb} alt={polar.subName} />
             </Styled.Button>
             <Styled.IconText>{polar.subName}</Styled.IconText>
           </Styled.ButtonContainer>
