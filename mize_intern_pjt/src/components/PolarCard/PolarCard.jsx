@@ -1,7 +1,7 @@
 import * as Styled from "./PolarCard_style";
 import Card from "../Card/Card";
 import lightbulb from "../../assets/lightbulb.png";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import axios from "axios";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 
@@ -94,44 +94,52 @@ export default function PolarCard({ data, name, agt, me }) {
         updateSwitchState(index, newState);
       } else {
         console.error("전등 POST API 호출 실패", response.data);
-        setErrorMessage("전등이 작동하지 않습니다.");
+        setErrorMessage(`전등이 작동하지 않습니다. (${me})`);
         setShowPopup(true);
       }
     } catch (error) {
       console.log("전등 POST API 에러", error);
-      setErrorMessage("전등이 작동하지 않습니다.", me);
+      setErrorMessage(`전등이 작동하지 않습니다. (${me})`);
       setShowPopup(true);
     }
   };
+
+  // 팝업 닫기
+  const handlePopupClose = useCallback(() => {
+    setShowPopup(false);
+    setErrorMessage("");
+  }, []);
 
   // 켜진 버튼 수 계산
   const countActivePolar = isOn.filter((polar) => polar.state).length;
 
   return (
-    <Card
-      placeText={name}
-      firstStateText={countActivePolar}
-      secondStateText={countActivePolar > 0 ? "켜짐" : "꺼짐"}
-    >
-      <Styled.Top>
-        {isOn.map((polar, idx) => (
-          <Styled.ButtonContainer key={idx}>
-            <Styled.Button
-              onClick={() => sendPolarControl(idx)}
-              $isOn={polar.state}
-            >
-              {showPopup && (
-                <ErrorPopup
-                  message={errorMessage}
-                  onClose={() => setShowPopup(false)} // 팝업 닫기
-                />
-              )}
-              <Styled.Icon src={lightbulb} alt={polar.subName} />
-            </Styled.Button>
-            <Styled.IconText>{polar.subName}</Styled.IconText>
-          </Styled.ButtonContainer>
-        ))}
-      </Styled.Top>
-    </Card>
+    <>
+      <Card
+        placeText={name}
+        firstStateText={countActivePolar}
+        secondStateText={countActivePolar > 0 ? "켜짐" : "꺼짐"}
+      >
+        <Styled.Top>
+          {isOn.map((polar, idx) => (
+            <Styled.ButtonContainer key={idx}>
+              <Styled.Button
+                onClick={() => sendPolarControl(idx)}
+                $isOn={polar.state}
+              >
+                <Styled.Icon src={lightbulb} alt={polar.subName} />
+              </Styled.Button>
+              <Styled.IconText>{polar.subName}</Styled.IconText>
+            </Styled.ButtonContainer>
+          ))}
+        </Styled.Top>
+      </Card>
+      {showPopup && (
+        <ErrorPopup
+          message={errorMessage}
+          onClose={handlePopupClose} // 팝업 닫기
+        />
+      )}
+    </>
   );
 }
