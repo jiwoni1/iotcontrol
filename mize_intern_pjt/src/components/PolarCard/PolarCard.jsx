@@ -2,8 +2,9 @@ import * as Styled from "./PolarCard_style";
 import Card from "../Card/Card";
 import lightbulb from "../../assets/lightbulb.png";
 import { useState } from "react";
+import axios from "axios";
 
-export default function PolarCard({ data, name, agt }) {
+export default function PolarCard({ data, name, agt, me }) {
   // P3가 있으면 2구, 없으면 1구구
   const isDual = data.P3 !== undefined;
   // 1구 2구에 따라 분리
@@ -52,6 +53,22 @@ export default function PolarCard({ data, name, agt }) {
   //       console.error("Error toggling switch:", error);
   //     }
   //   };
+
+  // Polar on/off API
+  const sendPolarControl = async () => {
+    const url = "http://localhost:3005/controller";
+    const data = {
+      me: me,
+      type: "",
+      val: "",
+    };
+    try {
+      const respoense = await axios.post(url, data);
+      console.log("전등 POST API 테스트 성공", respoense.data);
+    } catch (eroor) {
+      console.log("전등 POST API 에러", eroor);
+    }
+  };
 
   // 켜진 버튼 수 계산
   const countActivePolar = isOn.filter((polar) => polar.state).length;

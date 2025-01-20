@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPerson } from "@fortawesome/free-solid-svg-icons";
 import Card from "../Card/Card";
 
-export default function PresenceSensorCard({ name, agt, data }) {
+export default function PresenceSensorCard({ name, agt, data, me }) {
   const status = data.M1.val;
   const timestamp = data.M1.valts;
   const [isPresenece, setIsPresenece] = useState(status);

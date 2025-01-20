@@ -30,6 +30,7 @@ export default function Devices({ devices }) {
             name={device.message.name}
             agt={device.message.agt}
             data={device.message.data}
+            me={device.message.me}
           />
         );
       })}

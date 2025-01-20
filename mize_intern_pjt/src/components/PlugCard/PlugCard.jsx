@@ -6,7 +6,7 @@ import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 
 import Card from "../Card/Card";
 
-export default function PlugCard({ name, agt, data }) {
+export default function PlugCard({ name, agt, data, me }) {
   const status = data.P1.val;
   const consumption = data.P3.v.toFixed(1); // 소수점 첫째자리까지만 표시
   const formatNumber = (num) => {

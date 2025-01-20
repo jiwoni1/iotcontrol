@@ -4,7 +4,7 @@ import tv from "../../assets/tv.png";
 import newaircondition from "../../assets/newaircondition.png";
 import { useState } from "react";
 
-export default function SPOTMiniCard({ name, agt, data }) {
+export default function SPOTMiniCard({ name, agt, data, me }) {
   // 대회의실만 에어컨, tv 모두 다 있음
   const conferenceRoom = name === "대회의실 리모컨 제어";
   const [isOn, setIsOn] = useState(
