@@ -69,7 +69,7 @@ export default function PolarCard({ data, name, agt, me }) {
       agt: agt,
       me: me,
       idx: targetSwitch,
-      type: type,
+      type: newtype,
       val: val,
     };
     try {
