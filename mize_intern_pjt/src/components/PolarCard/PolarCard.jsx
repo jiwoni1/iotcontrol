@@ -3,6 +3,7 @@ import Card from "../Card/Card";
 import lightbulb from "../../assets/lightbulb.png";
 import { useState } from "react";
 import axios from "axios";
+import ErrorPopup from "../ErrorPopup/ErrorPopup";
 
 export default function PolarCard({ data, name, agt, me }) {
   // P3가 있으면 2구, 없으면 1구구
@@ -16,19 +17,21 @@ export default function PolarCard({ data, name, agt, me }) {
     : [{ subName: "스위치1", state: data.P1?.val === 1 }];
 
   const [isOn, setIsOn] = useState(initalState);
+  const [showPopup, setShowPopup] = useState(false); // 에러 팝업 표시 여부
+  const [errorMessage, setErrorMessage] = useState(""); // API 연결 안됳 시 에러메시지
 
-  // status 관리
-  // 해당 번호의 status를 바꿈
-  const handleButton = (index) => {
-    setIsOn((prevState) => {
-      const updatedStates = [...prevState];
-      updatedStates[index] = {
-        ...updatedStates[index],
-        state: !updatedStates[index].state,
-      };
-      return updatedStates;
-    });
-  };
+  // // status 관리
+  // // 해당 번호의 status를 바꿈
+  // const handleButton = (index) => {
+  //   setIsOn((prevState) => {
+  //     const updatedStates = [...prevState];
+  //     updatedStates[index] = {
+  //       ...updatedStates[index],
+  //       state: !updatedStates[index].state,
+  //     };
+  //     return updatedStates;
+  //   });
+  // };
 
   // API 연결
   //   const handleToggle = async (index) => {
@@ -55,18 +58,43 @@ export default function PolarCard({ data, name, agt, me }) {
   //   };
 
   // Polar on/off API
-  const sendPolarControl = async () => {
+  const sendPolarControl = async (index) => {
     const url = "http://localhost:3005/controller";
-    const data = {
+    const targetSwitch = index === 0 ? "P1" : "P3"; // 대상 스위치 결정
+    const newState = !isOn[index].state; // 현재 상태의 반대로
+    const type = newState ? "0x81" : "0x80";
+    const val = newState === 1 ? "1" : "0";
+    const dataToSend = {
+      agt: agt,
       me: me,
-      type: "",
-      val: "",
+      idx: targetSwitch,
+      type: type,
+      val: val,
     };
     try {
-      const respoense = await axios.post(url, data);
-      console.log("전등 POST API 테스트 성공", respoense.data);
+      const response = await axios.post(url, dataToSend);
+
+      if (response.status === 200) {
+        console.log("전등 POST API 테스트 성공", response.data);
+
+        // 상태 업데이트 5초마다 + 즉각 반영
+        setIsOn((prevState) => {
+          const updatedStates = [...prevState];
+          updatedStates[index] = {
+            ...updatedStates[index],
+            state: newState,
+          };
+          return updatedStates;
+        });
+      } else {
+        console.error("전등 POST API 호출 실패", response.data);
+        setErrorMessage("전등이 작동하지 않습니다.");
+        setShowPopup(true);
+      }
     } catch (eroor) {
       console.log("전등 POST API 에러", eroor);
+      setErrorMessage("전등이 작동하지 않습니다.");
+      setShowPopup(true);
     }
   };
 
@@ -83,9 +111,15 @@ export default function PolarCard({ data, name, agt, me }) {
         {isOn.map((polar, idx) => (
           <Styled.ButtonContainer key={idx}>
             <Styled.Button
-              onClick={() => handleButton(idx)}
+              onClick={() => sendPolarControl(idx)}
               $isOn={polar.state}
             >
+              {showPopup && (
+                <ErrorPopup
+                  message={errorMessage}
+                  onClose={() => setShowPopup(false)} // 팝업 닫기
+                />
+              )}
               <Styled.Icon src={lightbulb} alt={polar.subName} />
             </Styled.Button>
             <Styled.IconText>{polar.subName}</Styled.IconText>
