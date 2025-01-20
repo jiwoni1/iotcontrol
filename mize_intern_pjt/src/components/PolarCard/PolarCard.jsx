@@ -120,12 +120,12 @@ export default function PolarCard({ data, name, agt, me }) {
               onClick={() => sendPolarControl(idx)}
               $isOn={polar.state}
             >
-              {/* {showPopup && (
+              {showPopup && (
                 <ErrorPopup
                   message={errorMessage}
                   onClose={() => setShowPopup(false)} // 팝업 닫기
                 />
-              )} */}
+              )}
               <Styled.Icon src={lightbulb} alt={polar.subName} />
             </Styled.Button>
             <Styled.IconText>{polar.subName}</Styled.IconText>
