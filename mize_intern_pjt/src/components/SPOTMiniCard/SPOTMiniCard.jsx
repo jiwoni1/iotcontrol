@@ -6,6 +6,8 @@ import { useState, useCallback } from "react";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import axios from "axios";
 
+// 200 코드여도 failure면 popup주기
+
 export default function SPOTMiniCard({ name, agt, data, me }) {
   // 대회의실만 에어컨, tv 모두 다 있음
   const conferenceRoom = name === "대회의실 리모컨 제어";
@@ -20,9 +22,16 @@ export default function SPOTMiniCard({ name, agt, data, me }) {
 
   const [showPopup, setShowPopup] = useState(false); // 에러 팝업 표시 여부
   const [errorMessage, setErrorMessage] = useState(""); // API 연결 안됳 시 에러메시지
+  const aiInfo = {
+    "86d7": "AI_IR_86d7_1735908317", // 수면/샤워실(여)
+    "86d4": "AI_IR_86d4_1735907860", // 수면/샤워실(남)
+    "86c9": "AI_IR_86c9_1735904311", // 서버실
+    "61b1": "AI_IR_61b1_1735629377", // 대회의실
+    "3c98": "AI_IR_3c98_1735904858", // 김혜진이사실
+  };
 
   // status 관리
-  // 해당 번호의 status를 바꿈
+  // 해당 번호의 status를 바꿈 (api전)
   const handleButton = (index) => {
     setIsOn((prevState) => {
       const updatedStatus = [...prevState];
@@ -36,34 +45,41 @@ export default function SPOTMiniCard({ name, agt, data, me }) {
 
   // SPOTMini on/off API
   const sendSPOTMiniControl = async (index) => {
-    const url = "http://localhost:3005/controller";
-    const targetSwitch = index === 0 ? "P1" : "P3"; // 대상 스위치 결정
+    const url = "https://192.168.0.90:3007/spotcontrol";
     const newState = !isOn[index].state; // 현재 상태의 반대로
-    const type = newState ? "0x81" : "0x80";
-    const newtype = newState ? "129" : "128";
-    const val = newState === 1 ? "1" : "0";
+    const isConferenceRoomAirConditioner =
+      conferenceRoom && isOn[index].subName === "에어컨";
+    const keys = isConferenceRoomAirConditioner ? "CS_2" : "CS_1";
     const dataToSend = {
       agt: agt,
       me: me,
-      idx: targetSwitch,
-      type: type,
-      val: val,
+      ai: aiInfo[me],
+      category: "custom",
+      brand: "custom",
+      keys: keys,
     };
     try {
       const response = await axios.post(url, dataToSend);
 
-      if (response.status === 200) {
-        console.log("Spotmini POST API 테스트 성공", response.data);
-
-        // 상태 업데이트 5초마다 + 즉각 반영
+      if (response.status === 200 && response.data.status === "ok") {
+        console.log("Spotmini POST API 테스트 성공", response);
+        // 상태 변경 (필요한가?)
+        setIsOn((prevState) => {
+          const updatedStatus = [...prevState];
+          updatedStatus[index] = {
+            ...updatedStatus[index],
+            status: !updatedStatus[index].status,
+          };
+          return updatedStatus;
+        });
       } else {
         console.error("Spotmini POST API 호출 실패", response.data);
-        setErrorMessage(`${name}이 작동하지 않습니다.`);
+        setErrorMessage(`${name}가 작동하지 않습니다.`);
         setShowPopup(true);
       }
     } catch (error) {
       console.log("Spotmini POST API 에러", error);
-      setErrorMessage(`${name}이 작동하지 않습니다.`);
+      setErrorMessage(`${name}가 작동하지 않습니다.`);
       setShowPopup(true);
     }
   };
@@ -81,7 +97,7 @@ export default function SPOTMiniCard({ name, agt, data, me }) {
           {isOn.map((spotmini, idx) => (
             <Styled.ButtonContainer key={idx}>
               <Styled.Button
-                onClick={() => handleButton(idx)}
+                onClick={() => sendSPOTMiniControl(idx)}
                 $isActive={spotmini.status}
               >
                 <Styled.Icon

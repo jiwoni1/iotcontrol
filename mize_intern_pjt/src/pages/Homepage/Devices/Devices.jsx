@@ -15,6 +15,7 @@ export default function Devices({ devices }) {
     SL_SW_ND1: PolarCard,
     SL_SW_ND2: PolarCard,
     SL_P_IR: SPOTMiniCard,
+    V_SI_V1: null,
   };
 
   return (
@@ -22,15 +23,18 @@ export default function Devices({ devices }) {
       {/* devices 돌면서 렌더링 */}
       {devices.map((device, deviceidx) => {
         // device.type에 따라 다른 컴포넌트 렌더링
-        const Component = componentInfo[device.message.devtype];
+        const Component = componentInfo[device.devtype];
+
+        // 없는 장비는 렌더링 안함
+        if (!Component) return null;
 
         return (
           <Component
             key={deviceidx}
-            name={device.message.name}
-            agt={device.message.agt}
-            data={device.message.data}
-            me={device.message.me}
+            name={device.name}
+            agt={device.agt}
+            data={device.data}
+            me={device.me}
           />
         );
       })}

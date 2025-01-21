@@ -6,8 +6,8 @@ import axios from "axios";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 
 export default function PolarCard({ data, name, agt, me }) {
-  // P3가 있으면 2구, 없으면 1구구
-  const isDual = data.P2 !== undefined;
+  // P3가 있으면 2구, 없으면 1구
+  const isDual = data.P3 !== undefined;
   // 1구 2구에 따라 분리
   const initalState = isDual
     ? [
@@ -39,7 +39,6 @@ export default function PolarCard({ data, name, agt, me }) {
     const targetSwitch = index === 0 ? "P1" : "P2"; // 대상 스위치 결정
     const newState = !isOn[index].state; // 현재 상태의 반대로
     const type = newState ? "0x81" : "0x80";
-    const newtype = newState ? "129" : "128";
     const val = newState === 1 ? "1" : "0";
     const dataToSend = {
       agt: agt,

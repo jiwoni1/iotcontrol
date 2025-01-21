@@ -2,11 +2,23 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://192.168.0.90:3002/api"
+      "destination": "https://192.168.0.90:3009/data/:path*"
     },
     {
-      "source": "/controller/:path*",
+      "source": "/events/:path*",
+      "destination": "https://192.168.0.90:3009/events/:path*"
+    },
+    {
+      "source": "/data/:path*",
+      "destination": "https://192.168.0.90:3009/data/:path*"
+    },
+    {
+      "source": "/control/:path*",
       "destination": "https://192.168.0.90:3008/control/:path*"
+    },
+    {
+      "source": "/spotcontrol/:path*",
+      "destination": "https://192.168.0.90:3007/spotcontrol/:path*"
     },
     {
       "source": "/(.*)",

@@ -39,7 +39,8 @@ export default function Home() {
   };
 
   // const apiproxy = "/api/devices"; // API URL 설정
-  const url = import.meta.env.VITE_API_ALL;
+  // const url = import.meta.env.VITE_API_ALL;
+  const url = import.meta.env.VITE_API_ALL_MOBILE;
 
   // 환경에 따라 API URL 설정
   const apiproxy = import.meta.env.VITE_API_URL;
@@ -48,12 +49,11 @@ export default function Home() {
   const fetchDevices = async () => {
     try {
       const response = await axios.get(url);
-      const data = response.data;
+      const data = response.data.message;
       console.log("response111", response);
       console.log("data", data);
       setAllDevices(data);
       setFilteredDevices(data);
-      console.log("allDevices", allDevices);
     } catch (error) {
       console.error("Error fetching devices:", error);
     } finally {
@@ -61,13 +61,13 @@ export default function Home() {
     }
   };
 
-  // // polling 방식
+  // polling 방식
   // useEffect(() => {
   //   fetchDevices(); // 처음에 호출
 
   //   const interval = setInterval(() => {
   //     fetchDevices(); // 10초마다 다시 호출
-  //   }, 10000);
+  //   }, 5000);
 
   //   return () => clearInterval(interval); // 컴포넌트가 사라질 때 interval 제거
   // }, []);
@@ -86,8 +86,8 @@ export default function Home() {
       return;
     } else {
       const filtered = allDevices.filter((device) => {
-        const roomName = device.message.name.split(" ")[0]; // name에서 방 이름 추출(띄어쓰기 전까지지)
-        return device.message.agt === category && roomName === room; // 선택된 방과 일치하는 데이터만 필터링
+        const roomName = device.name.split(" ")[0]; // name에서 방 이름 추출(띄어쓰기 전까지지)
+        return device.agt === category && roomName === room; // 선택된 방과 일치하는 데이터만 필터링
       });
       setFilteredDevices(filtered);
       setSelectedFilter({ category, room });
