@@ -29,7 +29,7 @@ export default function PlugCard({ name, agt, data, me }) {
     const urlmobile = "https://192.168.0.90:3008/control";
     const targetSwitch = "P1";
     const newState = !isOn; // 현재 상태의 반대로
-    const type = newState ? "0x81" : "0x80";
+    const type = newState ? "1" : "0";
     // const newtype = newState ? "129" : "128";
     const val = newState ? "1" : "0";
     const dataToSend = {
