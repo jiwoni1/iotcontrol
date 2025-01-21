@@ -25,8 +25,9 @@ export default function PlugCard({ name, agt, data, me }) {
 
   // Plug on/off API
   const sendPlugControl = async (index) => {
-    const url = "http://localhost:3005/controller";
-    const targetSwitch = index === 0 ? "P1" : "P3"; // 대상 스위치 결정
+    const url = "http://localhost:3008/controller";
+    const urlmobile = "https://192.168.0.90:3008/control";
+    const targetSwitch = "P1";
     const newState = !isOn[index].state; // 현재 상태의 반대로
     const type = newState ? "0x81" : "0x80";
     const newtype = newState ? "129" : "128";
@@ -39,7 +40,7 @@ export default function PlugCard({ name, agt, data, me }) {
       val: val,
     };
     try {
-      const response = await axios.post(url, dataToSend);
+      const response = await axios.post(urlmobile, dataToSend);
 
       if (response.status === 200) {
         console.log("Plug POST API 테스트 성공", response.data);
