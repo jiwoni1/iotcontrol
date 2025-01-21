@@ -25,8 +25,8 @@ export default function PlugCard({ name, agt, data, me }) {
 
   // Plug on/off API
   const sendPlugControl = async () => {
-    const url = "http://localhost:3008/controller";
-    const urlmobile = "https://192.168.0.90:3008/control";
+    const url = "https://192.168.0.90:3008/control";
+    // const url = import.meta.env.VITE_API_PLUG_POLAR_MOBILE;
     const targetSwitch = "P1";
     const newState = !isOn; // 현재 상태의 반대로
     const type = newState ? "1" : "0";
@@ -40,7 +40,7 @@ export default function PlugCard({ name, agt, data, me }) {
       val: val,
     };
     try {
-      const response = await axios.post(urlmobile, dataToSend);
+      const response = await axios.post(url, dataToSend);
 
       if (response.status === 200) {
         console.log("Plug POST API 테스트 성공", response.data);
@@ -67,7 +67,7 @@ export default function PlugCard({ name, agt, data, me }) {
     <>
       <Card
         placeText={name}
-        firstStateText={status ? "켜짐" : "꺼짐"}
+        firstStateText={isOn ? "켜짐" : "꺼짐"}
         secondStateText={formatNumber(consumption) + "W"}
       >
         <Styled.Top>

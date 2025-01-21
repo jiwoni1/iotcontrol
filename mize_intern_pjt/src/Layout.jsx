@@ -14,7 +14,7 @@ const Container = styled.div`
   width: 100%;
   /* width: ${(props) => `${100 / props.scale}%`}; 스케일에 따라 너비 조정
   height: ${(props) => `${100 / props.scale}vh`}; 스케일에 따라 높이 조정 */
-  max-width: 768px;
+  max-width: 500px;
   min-height: 100vh;
   box-sizing: border-box;
   background-color: "white";

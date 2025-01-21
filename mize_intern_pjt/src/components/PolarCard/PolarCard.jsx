@@ -34,8 +34,8 @@ export default function PolarCard({ data, name, agt, me }) {
 
   // Polar on/off API
   const sendPolarControl = async (index) => {
-    const url = "http://localhost:3008/control";
-    const urlmobile = "https://192.168.0.90:3008/control";
+    // const url = "http://localhost:3008/control";
+    const url = import.meta.env.VITE_API_PLUG_POLAR_MOBILE;
     const targetSwitch = index === 0 ? "P1" : "P2"; // 대상 스위치 결정
     const newState = !isOn[index].state; // 현재 상태의 반대로
     const type = newState ? "0x81" : "0x80";
@@ -49,7 +49,7 @@ export default function PolarCard({ data, name, agt, me }) {
       val: val,
     };
     try {
-      const response = await axios.post(urlmobile, dataToSend);
+      const response = await axios.post(url, dataToSend);
 
       if (response.status === 200) {
         console.log("전등 POST API 테스트 성공", response.data);

@@ -14,8 +14,8 @@
     },
 
     {
-      "source": "/.well-known/:path*",
-      "destination": "/.well-known/:path*"
+      "source": "/.well-known/assetlinks.json",
+      "destination": "/.well-known/assetlinks.json"
     }
   ]
 }

@@ -39,8 +39,7 @@ export default function Home() {
   };
 
   // const apiproxy = "/api/devices"; // API URL 설정
-  const api = "https://localhost:3002/api";
-  const apimobile = "https://192.168.0.90:3002/api";
+  const url = import.meta.env.VITE_API_ALL;
 
   // 환경에 따라 API URL 설정
   const apiproxy = import.meta.env.VITE_API_URL;
@@ -48,7 +47,7 @@ export default function Home() {
   // API 요청
   const fetchDevices = async () => {
     try {
-      const response = await axios.get(apimobile);
+      const response = await axios.get(url);
       const data = response.data;
       console.log("response111", response);
       console.log("data", data);
