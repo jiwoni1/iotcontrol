@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userIdState } from "../../recoil/atoms/userAtom";
 import axios from "axios";
 import * as Styled from "./Login_style";
 import idIcon from "../../assets/id_icon.png";
@@ -13,6 +15,7 @@ export default function Login() {
     userId: "",
     password: "",
   });
+  const [userId, setUserId] = useRecoilState(userIdState); // recoil 상태
   const [error, setError] = useState(""); // 에러 메시지 상태
 
   const handleInputChange = (e) => {
@@ -46,7 +49,8 @@ export default function Login() {
         password: loginInput.password,
       });
       if (res.status === 200) {
-        localStorage.setItem("isLoggedIn", "true"); // 로그인 상태 저장
+        setUserId(loginInput.userId); // recoil 상태에 저장
+        localStorage.setItem("userId", loginInput.userId); // local storage에 로그인 상태 저장
         nav("/home"); // 홈 화면으로 이동
         console.log(res.data);
       }

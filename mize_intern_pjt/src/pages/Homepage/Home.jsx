@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import { userIdState } from "../../recoil/atoms/userAtom";
 import * as Styled from "./Home_style";
 import Filter from "./Filter/Filter";
 import Devices from "./Devices/Devices";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
 
 export default function Home() {
+  const userId = useRecoilValue(userIdState); // recoil 상태 읽긴
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [allDevices, setAllDevices] = useState([]); // 전체 디바이스
   const [filteredDevices, setFilteredDevices] = useState([]); // 필터링된 디바이스
@@ -97,6 +100,9 @@ export default function Home() {
     <Styled.HomeWrapper>
       <Styled.Header>
         <Styled.Title>{title}</Styled.Title>
+        <Styled.UserId>
+          {userId ? "안녕하세요 {userId}" : "로그인이 필요합니다"}
+        </Styled.UserId>
       </Styled.Header>
       <Filter
         roomInfo={roomInfo}

@@ -9,10 +9,22 @@ export const HomeWrapper = styled.div`
   padding: 7% 5%;
 `;
 
-export const Header = styled.div``;
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10%;
+`;
 
 export const Title = styled.div`
   font-size: 1.5rem;
   font-weight: ${Noto_Sans_KR.bold.weight};
   color: ${PALETTE.MAIN_BLACK};
+`;
+
+export const UserId = styled.div`
+  font-size: 0.9rem;
+  font-weight: ${Noto_Sans_KR.medium.weight};
+  color: ${PALETTE.MAIN_BLACK};
+  margin: 0px;
 `;
