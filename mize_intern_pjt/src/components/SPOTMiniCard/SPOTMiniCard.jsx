@@ -49,7 +49,7 @@ export default function SPOTMiniCard({ name, agt, data, me }) {
     const newState = !isOn[index].state; // 현재 상태의 반대로
     const isConferenceRoomAirConditioner =
       conferenceRoom && isOn[index].subName === "에어컨";
-    const keys = isConferenceRoomAirConditioner ? "CS_2" : "CS_1";
+    const keys = isConferenceRoomAirConditioner ? '["CS_2"]' : '["CS_1"]';
     const dataToSend = {
       agt: agt,
       me: me,
