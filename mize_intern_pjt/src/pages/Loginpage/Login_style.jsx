@@ -83,6 +83,7 @@ export const LoginText = styled.input`
 `;
 
 export const ErrorMessage = styled.div`
+  white-space: pre-line; // 줄바꿈 인식
   margin-top: 3%;
   font-size: 0.85rem;
   font-weight: ${Noto_Sans_KR.regular.weight};

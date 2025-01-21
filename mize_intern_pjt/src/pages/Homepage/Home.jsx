@@ -18,7 +18,7 @@ export default function Home() {
   // 카테고리와 방 이름 매핑
   const roomInfo = {
     Basic: ["모든 기기"], // 기본
-    BjMAADSYeAEAAAteSQz__w: ["대회의실", "1번", "2번"], // 회의실(1번, 2번이 띄어쓰기로 되어있음 ㅠㅠ 1번 소회의실, 2번 소회의실)
+    BjMAADSYeAEAAAteSQz__w: ["대회의실", "1번", "2번"], // 회의실(1번, 2번이 띄어쓰기로 되어있음; 1번 소회의실, 2번 소회의실)
     BjMAADSYeAEAAAwxNAz__w: [
       "김영훈대표",
       "김영철이사",
@@ -59,6 +59,7 @@ export default function Home() {
     }
   };
 
+  // // polling 방식
   // useEffect(() => {
   //   fetchDevices(); // 처음에 호출
 
@@ -72,13 +73,6 @@ export default function Home() {
   useEffect(() => {
     fetchDevices(); // 처음에 호출
   }, []);
-
-  // // API 연결 전 테스트
-  // useEffect(() => {
-  //   setAllDevices(data);
-  //   setFilteredDevices(data);
-  //   setLoading(false);
-  // }, []);
 
   // 필터
   const handleFilterChange = (category, room) => {
@@ -111,7 +105,6 @@ export default function Home() {
       />
       {/* 로딩 중일 때 로딩 표시 */}
       {loading ? <div>로딩중</div> : <Devices devices={filteredDevices} />}
-      {/* <Devices devices={filteredDevices} /> */}
     </Styled.HomeWrapper>
   );
 }

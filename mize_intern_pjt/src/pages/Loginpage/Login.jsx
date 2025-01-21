@@ -38,7 +38,7 @@ export default function Login() {
 
   // API 연결 필요
   const onLogin = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // 왜 쓰는거지?
 
     try {
       const res = await axios.post("url", {
@@ -46,11 +46,16 @@ export default function Login() {
         password: loginInput.password,
       });
       if (res.status === 200) {
+        localStorage.setItem("isLoggedIn", "true"); // 로그인 상태 저장
         nav("/home"); // 홈 화면으로 이동
         console.log(res.data);
       }
     } catch (error) {
       console.log(error);
+      setError(
+        `아이디 또는 비밀번호가 잘못 되었습니다. 
+        아이디와 비밀번호를 정확히 입력해 주세요.`
+      ); // 줄 바꿈
     }
   };
 

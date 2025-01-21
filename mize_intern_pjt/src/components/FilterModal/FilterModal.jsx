@@ -42,7 +42,7 @@ export default function FilterModal({
     onFilterChange(currentCategory, room); // 로컬 변수를 사용하여 전달(비동기 고려)
     onClose(); // 모달 닫기
   };
-  console.log("선ㅌ택된 방", selectedCategory);
+  console.log("선택된 방:", selectedCategory);
 
   return (
     <>
