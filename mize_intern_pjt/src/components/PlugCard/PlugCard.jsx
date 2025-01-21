@@ -24,14 +24,14 @@ export default function PlugCard({ name, agt, data, me }) {
   };
 
   // Plug on/off API
-  const sendPlugControl = async (index) => {
+  const sendPlugControl = async () => {
     const url = "http://localhost:3008/controller";
     const urlmobile = "https://192.168.0.90:3008/control";
     const targetSwitch = "P1";
-    const newState = !isOn[index].state; // 현재 상태의 반대로
+    const newState = !isOn; // 현재 상태의 반대로
     const type = newState ? "0x81" : "0x80";
-    const newtype = newState ? "129" : "128";
-    const val = newState === 1 ? "1" : "0";
+    // const newtype = newState ? "129" : "128";
+    const val = newState ? "1" : "0";
     const dataToSend = {
       agt: agt,
       me: me,
@@ -44,6 +44,7 @@ export default function PlugCard({ name, agt, data, me }) {
 
       if (response.status === 200) {
         console.log("Plug POST API 테스트 성공", response.data);
+        setIsOn(newState);
       } else {
         console.error("Plug POST API 호출 실패", response.data);
         setErrorMessage(`${name}이 작동하지 않습니다.`);
@@ -72,7 +73,7 @@ export default function PlugCard({ name, agt, data, me }) {
         <Styled.Top>
           <Styled.Icon src={power} alt="Plug" />
 
-          <Styled.Button onClick={handleButtonChange} $isOn={isOn}>
+          <Styled.Button onClick={sendPlugControl} $isOn={isOn}>
             <FontAwesomeIcon icon={faPowerOff} size="xl" color="white" />
           </Styled.Button>
         </Styled.Top>
