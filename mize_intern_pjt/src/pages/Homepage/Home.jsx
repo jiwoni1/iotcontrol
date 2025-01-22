@@ -51,8 +51,22 @@ export default function Home() {
       const data = response.data.message;
       console.log("response111", response);
       console.log("data", data);
-      setAllDevices(data);
-      setFilteredDevices(data);
+      setAllDevices([...data]);
+      // setFilteredDevices([...data]);
+      // filter 테스트
+      // 현재 필터 상태에 따라 필터링
+      if (selectedFilter.category === "Basic") {
+        setFilteredDevices([...data]); // 모든 기기
+      } else {
+        const filtered = data.filter((device) => {
+          const roomName = device.name.split(" ")[0];
+          return (
+            device.agt === selectedFilter.category &&
+            roomName === selectedFilter.room
+          );
+        });
+        setFilteredDevices(filtered); // 필터링된 기기
+      }
     } catch (error) {
       console.error("Error fetching devices:", error);
     } finally {
@@ -61,19 +75,19 @@ export default function Home() {
   };
 
   // polling 방식
-  // useEffect(() => {
-  //   fetchDevices(); // 처음에 호출
-
-  //   const interval = setInterval(() => {
-  //     fetchDevices(); // 10초마다 다시 호출
-  //   }, 5000);
-
-  //   return () => clearInterval(interval); // 컴포넌트가 사라질 때 interval 제거
-  // }, []);
-
   useEffect(() => {
     fetchDevices(); // 처음에 호출
-  }, []);
+
+    const interval = setInterval(() => {
+      fetchDevices(); // 5초마다 다시 호출
+    }, 5000);
+
+    return () => clearInterval(interval); // 컴포넌트가 사라질 때 interval 제거
+  }, [selectedFilter]);
+
+  // useEffect(() => {
+  //   fetchDevices(); // 처음에 호출
+  // }, []);
 
   // 필터
   const handleFilterChange = (category, room) => {

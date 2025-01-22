@@ -1,24 +1,46 @@
 import * as Styled from "./PolarCard_style";
 import Card from "../Card/Card";
 import lightbulb from "../../assets/lightbulb.png";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import axios from "axios";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 
 export default function PolarCard({ data, name, agt, me }) {
   // P3가 있으면 2구, 없으면 1구
   const isDual = data.P3 !== undefined;
-  // 1구 2구에 따라 분리
-  const initalState = isDual
-    ? [
-        { subName: "스위치1", state: data.P1?.val === 1 },
-        { subName: "스위치2", state: data.P2?.val === 1 },
-      ]
-    : [{ subName: "스위치1", state: data.P1?.val === 1 }];
+  // // 1구 2구에 따라 분리
+  // const initalState = isDual
+  //   ? [
+  //       { subName: "스위치1", state: data.P1?.val === 1 },
+  //       { subName: "스위치2", state: data.P2?.val === 1 },
+  //     ]
+  //   : [{ subName: "스위치1", state: data.P1?.val === 1 }];
 
-  const [isOn, setIsOn] = useState(initalState);
+  // const [isOn, setIsOn] = useState(initalState);
+
+  // 얕은 비교 떄문에 새로 배열 생성
+  const [isOn, setIsOn] = useState(
+    isDual
+      ? [
+          { subName: "스위치1", state: data.P1?.val === 1 },
+          { subName: "스위치2", state: data.P2?.val === 1 },
+        ]
+      : [{ subName: "스위치1", state: data.P1?.val === 1 }]
+  );
   const [showPopup, setShowPopup] = useState(false); // 에러 팝업 표시 여부
   const [errorMessage, setErrorMessage] = useState(""); // API 연결 안됳 시 에러메시지
+
+  // data가 변경될 때(사용자가 직접 끄고 킬 떄) isOn 업데이트
+  // React가 참조 변경을 감지하도록
+  useEffect(() => {
+    const updatedState = isDual
+      ? [
+          { subName: "스위치1", state: data.P1?.val === 1 },
+          { subName: "스위치2", state: data.P2?.val === 1 },
+        ]
+      : [{ subName: "스위치1", state: data.P1?.val === 1 }];
+    setIsOn(updatedState);
+  }, [data, isDual]);
 
   // 상태 업데이트
   const updateSwitchState = (index, newState) => {
@@ -53,7 +75,7 @@ export default function PolarCard({ data, name, agt, me }) {
       if (response.status === 200) {
         console.log("전등 POST API 테스트 성공", response.data);
 
-        // 상태 업데이트 5초마다 + 즉각 반영
+        // 상태 업데이트 (필요한가?)
         updateSwitchState(index, newState);
       } else {
         console.error("전등 POST API 호출 실패", response.data);
