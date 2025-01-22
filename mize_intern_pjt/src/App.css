@@ -1,0 +1,7 @@
+/* 전역스타일 관리 */
+
+/* pull-to-request 방지 */
+html,
+body {
+  overscroll-behavior: none;
+}

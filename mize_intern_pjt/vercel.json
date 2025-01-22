@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/events/:path*",
-      "destination": "https://192.168.0.90:3009/events/:path*"
-    },
-    {
       "source": "/data/:path*",
       "destination": "https://192.168.0.90:3009/data/:path*"
     },
@@ -19,11 +15,6 @@
     {
       "source": "/(.*)",
       "destination": "/index.html"
-    },
-
-    {
-      "source": "/.well-known/assetlinks.json",
-      "destination": "/.well-known/assetlinks.json"
     }
   ]
 }

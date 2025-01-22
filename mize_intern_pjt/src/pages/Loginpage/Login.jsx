@@ -15,7 +15,7 @@ export default function Login() {
     userId: "",
     password: "",
   });
-  const [userId, setUserId] = useRecoilState(userIdState); // recoil 상태
+  // const [userId, setUserId] = useRecoilState(userIdState); // recoil 상태
   const [error, setError] = useState(""); // 에러 메시지 상태
 
   const handleInputChange = (e) => {
@@ -44,15 +44,31 @@ export default function Login() {
     e.preventDefault(); // 왜 쓰는거지?
 
     try {
-      const res = await axios.post("url", {
-        userId: loginInput.userId,
-        password: loginInput.password,
-      });
-      if (res.status === 200) {
-        setUserId(loginInput.userId); // recoil 상태에 저장
-        localStorage.setItem("userId", loginInput.userId); // local storage에 로그인 상태 저장
+      const res = await axios.post(
+        "https://192.168.0.90:8083/login",
+        {
+          userId: loginInput.userId,
+          password: loginInput.password,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (res.status === 200 && res.data === "success") {
+        // setUserId(loginInput.userId); // recoil 상태에 저장
+        localStorage.setItem(
+          "userId",
+          JSON.stringify({ userId: loginInput.userId })
+        );
+        localStorage.setItem("logined", JSON.stringify({ logined: true })); // local storage에 로그인 상태 저장
         nav("/home"); // 홈 화면으로 이동
         console.log(res.data);
+      } else {
+        console.log("안돼");
+        setError(
+          `아이디 또는 비밀번호가 잘못 되었습니다. 
+          아이디와 비밀번호를 정확히 입력해 주세요.`
+        );
       }
     } catch (error) {
       console.log(error);

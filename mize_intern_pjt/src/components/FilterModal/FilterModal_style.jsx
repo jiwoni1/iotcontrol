@@ -96,7 +96,6 @@ export const RoomName = styled.div`
   color: ${PALETTE.MAIN_BLACK};
   padding: 1% 4%;
   border-radius: 16px;
-  /* 할까 말까 */
   background-color: ${({ $isSelected }) => ($isSelected ? "white" : "none")};
 `;
 

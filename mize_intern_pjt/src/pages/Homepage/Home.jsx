@@ -1,13 +1,22 @@
-import { useState, useEffect } from "react";
-import { userIdState } from "../../recoil/atoms/userAtom";
+import { useState, useEffect, useRef } from "react";
+// import { useRecoilValue } from "recoil";
+// import { userIdState } from "../../recoil/atoms/userAtom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import * as Styled from "./Home_style";
 import Filter from "./Filter/Filter";
 import Devices from "./Devices/Devices";
-import axios from "axios";
-import { useRecoilValue } from "recoil";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import loadinglottie from "../../assets/lottie/loadinglottie.json";
+import Lottie from "lottie-react";
 
 export default function Home() {
-  const userId = useRecoilValue(userIdState); // recoil 상태 읽긴
+  const nav = useNavigate();
+  const dropdownRef = useRef(null);
+  // const userId = useRecoilValue(userIdState); // recoil 상태 읽기
+  const [userId, setUserId] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false); // 로그아웃 드롭다운
   const [loading, setLoading] = useState(true); // 로딩 상태
   const [allDevices, setAllDevices] = useState([]); // 전체 디바이스
   const [filteredDevices, setFilteredDevices] = useState([]); // 필터링된 디바이스
@@ -38,11 +47,7 @@ export default function Home() {
     ], // 공용 공간
   };
 
-  // const apiproxy = "/api/devices"; // API URL 설정
-  // const url = import.meta.env.VITE_API_ALL;
-  const url = import.meta.env.VITE_API_ALL_MOBILE;
-
-  // 환경에 따라 API URL 설정
+  const url = import.meta.env.VITE_API_GET_DATA;
 
   // API 요청
   const fetchDevices = async () => {
@@ -85,16 +90,25 @@ export default function Home() {
     return () => clearInterval(interval); // 컴포넌트가 사라질 때 interval 제거
   }, [selectedFilter]);
 
-  // useEffect(() => {
-  //   fetchDevices(); // 처음에 호출
-  // }, []);
+  // localStorage에서 userId 가져오기
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      try {
+        // const parsedUserId = JSON.parse(storedUserId); // JSON 파싱
+        // setUserId(parsedUserId);
+      } catch (error) {
+        console.error("Error parsing userId from localStorage:", error);
+        setUserId(storedUserId); // 문자열 그대로 사용
+      }
+    }
+  }, []);
 
   // 필터
   const handleFilterChange = (category, room) => {
     if (category === "Basic") {
       // 필터 선택 해제(모든 데이터 표시)
       setFilteredDevices(allDevices);
-      //test
       setSelectedFilter({ category: "Basic", room: "모든 기기" });
       return;
     } else {
@@ -105,16 +119,64 @@ export default function Home() {
       setFilteredDevices(filtered);
       setSelectedFilter({ category, room });
     }
-    // setSelectedFilter({ category, room });
+  };
+
+  // 드롭다운 외부 클릭
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        // 내부 영역이 아닐 경우 실행
+        setDropdownOpen(false);
+      }
+    };
+
+    // 전역 클릭 이벤트 리스너 등록
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // 이벤트 리스너 해제
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // 로그아웃 처리
+  const handleLogout = () => {
+    localStorage.removeItem("userId"); // 사용자 ID 삭제
+    nav("/"); // 로그인 페이지로 이동
+  };
+
+  // userId
+  // console.log(localStorage.getItem("userId"));
+  // const userIdTest = JSON.parse(localStorage.getItem("userId"));
+  // console.log(userId.userIdTest); // 실제 userId 값 출력
+
+  // 드롭다운 토글
+  const toggleDropdown = () => {
+    setDropdownOpen((prev) => !prev);
   };
 
   return (
     <Styled.HomeWrapper>
       <Styled.Header>
         <Styled.Title>{title}</Styled.Title>
-        <Styled.UserId>
-          {userId ? "안녕하세요 {userId}" : "로그인이 필요합니다"}
-        </Styled.UserId>
+        <div ref={dropdownRef}>
+          <Styled.UserId onClick={toggleDropdown}>
+            {/* {userId ? { userId } : "로그인이 필요합니다"} */}
+            {dropdownOpen ? (
+              <FontAwesomeIcon icon={faChevronUp} size="xs" color="black" />
+            ) : (
+              <FontAwesomeIcon icon={faChevronDown} size="xs" color="black" />
+            )}
+          </Styled.UserId>
+          {/* 드롭다운 */}
+          {dropdownOpen && (
+            <Styled.DropdownMenu>
+              <Styled.DropdownItem onClick={handleLogout}>
+                로그아웃
+              </Styled.DropdownItem>
+            </Styled.DropdownMenu>
+          )}
+        </div>
       </Styled.Header>
       <Filter
         roomInfo={roomInfo}
@@ -122,7 +184,13 @@ export default function Home() {
         onFilterChange={handleFilterChange}
       />
       {/* 로딩 중일 때 로딩 표시 */}
-      {loading ? <div>로딩중</div> : <Devices devices={filteredDevices} />}
+      {loading ? (
+        <Styled.LottieContainer>
+          <Lottie animationData={loadinglottie} />
+        </Styled.LottieContainer>
+      ) : (
+        <Devices devices={filteredDevices} />
+      )}
     </Styled.HomeWrapper>
   );
 }

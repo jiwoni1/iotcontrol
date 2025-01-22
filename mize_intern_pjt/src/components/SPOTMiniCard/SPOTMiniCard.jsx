@@ -45,7 +45,7 @@ export default function SPOTMiniCard({ name, agt, data, me }) {
 
   // SPOTMini on/off API
   const sendSPOTMiniControl = async (index) => {
-    const url = "https://192.168.0.90:3007/spotcontrol";
+    const url = import.meta.env.VITE_API_POST_SPOTMINI;
     const newState = !isOn[index].state; // 현재 상태의 반대로
     const isConferenceRoomAirConditioner =
       conferenceRoom && isOn[index].subName === "에어컨";

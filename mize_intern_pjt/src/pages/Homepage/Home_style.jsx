@@ -27,4 +27,36 @@ export const UserId = styled.div`
   font-weight: ${Noto_Sans_KR.medium.weight};
   color: ${PALETTE.MAIN_BLACK};
   margin: 0px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+export const LottieContainer = styled.div`
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const DropdownMenu = styled.div`
+  position: absolute;
+  top: 60px; // UserId 아래로 띄우기
+  right: 10px; // 우측 정렬
+  /* background-color: white; */
+  border: 1px solid ${PALETTE.SUB_BLACK};
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+`;
+
+export const DropdownItem = styled.div`
+  padding: 8px 13px;
+  cursor: pointer;
+  &:hover {
+    background-color: #f5f5f5;
+  }
+  font-size: 0.8rem;
+  font-weight: ${Noto_Sans_KR.medium.weight};
+  color: ${PALETTE.MAIN_BLACK};
 `;

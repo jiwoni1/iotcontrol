@@ -33,41 +33,14 @@ export default function PresenceSensorCard({ name, agt, data, me }) {
     }
   }
 
-  // PresenceSensor 상태 변경 api
-  //   const togglePresence = async () => {
-  //     try {
-  //       const respone = await fetch("http://localhost:3000/api/presence", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           state: !isPresenece,
-  //           name: name,
-  //           timestamp: timestamp,
-  //           agt: agt,
-  //           me: me,
-  //         }),
-  //       });
-  //       setIsPresenece(!isPresenece);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   const time = new Date(timestamp);
-  // 타임스탬프 계산해서 1시간 이하는 ~분 전, 1시간 이상은 ~시간 전으로 표시
-
   return (
     <Card
       placeText={name}
       firstStateText={isPresenece ? "동작 감지됨" : "움직임 없음"}
-      secondStateText={getTimeAgo(timestamp)} // + time
+      secondStateText={getTimeAgo(timestamp)}
     >
       <Styled.Top>
-        {/* 이 아이콘은 props로 처리 */}
         <Styled.Icon src={sensor} alt="sensor" />
-        {/* api 연결하면 onClick={togglePresence} */}
         <Styled.Button $isPresenece={isPresenece}>
           <FontAwesomeIcon icon={faPerson} size="xl" color="white" />
         </Styled.Button>
