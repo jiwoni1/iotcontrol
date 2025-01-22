@@ -43,7 +43,6 @@ export default function Home() {
   const url = import.meta.env.VITE_API_ALL_MOBILE;
 
   // 환경에 따라 API URL 설정
-  const apiproxy = import.meta.env.VITE_API_URL;
 
   // API 요청
   const fetchDevices = async () => {
