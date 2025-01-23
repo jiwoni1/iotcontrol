@@ -40,12 +40,14 @@ export default function Login() {
   };
 
   // API 연결 필요
+  const url = import.meta.env.VITE_API_POST_LOGIN;
+
   const onLogin = async (e) => {
     e.preventDefault(); // 왜 쓰는거지?
 
     try {
       const res = await axios.post(
-        "https://192.168.0.90:8083/login",
+        url,
         {
           userId: loginInput.userId,
           password: loginInput.password,
