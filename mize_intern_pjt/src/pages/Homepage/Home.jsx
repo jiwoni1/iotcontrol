@@ -85,7 +85,7 @@ export default function Home() {
 
     const interval = setInterval(() => {
       fetchDevices(); // 5초마다 다시 호출
-    }, 5000);
+    }, 2000);
 
     return () => clearInterval(interval); // 컴포넌트가 사라질 때 interval 제거
   }, [selectedFilter]);
