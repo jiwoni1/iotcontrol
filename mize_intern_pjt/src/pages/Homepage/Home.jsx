@@ -57,8 +57,7 @@ export default function Home() {
       console.log("response111", response);
       console.log("data", data);
       setAllDevices([...data]);
-      // setFilteredDevices([...data]);
-      // filter 테스트
+
       // 현재 필터 상태에 따라 필터링
       if (selectedFilter.category === "Basic") {
         setFilteredDevices([...data]); // 모든 기기
@@ -84,7 +83,7 @@ export default function Home() {
     fetchDevices(); // 처음에 호출
 
     const interval = setInterval(() => {
-      fetchDevices(); // 5초마다 다시 호출
+      fetchDevices(); // 2초마다 다시 호출
     }, 2000);
 
     return () => clearInterval(interval); // 컴포넌트가 사라질 때 interval 제거
@@ -105,20 +104,23 @@ export default function Home() {
   }, []);
 
   // 필터
+  // const handleFilterChange = (category, room) => {
+  //   if (category === "Basic") {
+  //     // 필터 선택 해제(모든 데이터 표시)
+  //     setFilteredDevices(allDevices);
+  //     setSelectedFilter({ category: "Basic", room: "모든 기기" });
+  //     return;
+  //   } else {
+  //     const filtered = allDevices.filter((device) => {
+  //       const roomName = device.name.split(" ")[0]; // name에서 방 이름 추출(띄어쓰기 전까지지)
+  //       return device.agt === category && roomName === room; // 선택된 방과 일치하는 데이터만 필터링
+  //     });
+  //     setFilteredDevices(filtered);
+  //     setSelectedFilter({ category, room });
+  //   }
+  // };
   const handleFilterChange = (category, room) => {
-    if (category === "Basic") {
-      // 필터 선택 해제(모든 데이터 표시)
-      setFilteredDevices(allDevices);
-      setSelectedFilter({ category: "Basic", room: "모든 기기" });
-      return;
-    } else {
-      const filtered = allDevices.filter((device) => {
-        const roomName = device.name.split(" ")[0]; // name에서 방 이름 추출(띄어쓰기 전까지지)
-        return device.agt === category && roomName === room; // 선택된 방과 일치하는 데이터만 필터링
-      });
-      setFilteredDevices(filtered);
-      setSelectedFilter({ category, room });
-    }
+    setSelectedFilter({ category, room });
   };
 
   // 드롭다운 외부 클릭

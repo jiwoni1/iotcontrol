@@ -13,6 +13,10 @@
       "destination": "https://192.168.0.90:3007/spotcontrol/:path*"
     },
     {
+      "source": "/login/:path*",
+      "destination": "https://192.168.0.90:3005/login/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

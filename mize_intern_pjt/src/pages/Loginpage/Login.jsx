@@ -40,7 +40,8 @@ export default function Login() {
   };
 
   // API 연결 필요
-  const url = import.meta.env.VITE_API_POST_LOGIN;
+  // const url = import.meta.env.VITE_API_POST_LOGIN;
+  const url = "https://192.168.0.90:3005/login";
 
   const onLogin = async (e) => {
     e.preventDefault(); // 왜 쓰는거지?
@@ -161,8 +162,8 @@ export default function Login() {
         {/* 로그인 성공 시 홈 페이지로 이동 */}
         {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}{" "}
         {/* 에러 메시지 */}
-        <Styled.LoginButton onClick={onLogin}>로그인</Styled.LoginButton>
-        {/* <Styled.LoginButton onClick={onLoginTemp}>로그인</Styled.LoginButton> */}
+        {/* <Styled.LoginButton onClick={onLogin}>로그인</Styled.LoginButton> */}
+        <Styled.LoginButton onClick={onLoginTemp}>로그인</Styled.LoginButton>
       </Styled.LoginWrapper>
     </Styled.Wrapper>
   );
