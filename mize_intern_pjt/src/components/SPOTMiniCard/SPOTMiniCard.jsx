@@ -30,23 +30,9 @@ export default function SPOTMiniCard({ name, agt, data, me }) {
     "3c98": "AI_IR_3c98_1735904858", // 김혜진이사실
   };
 
-  // status 관리
-  // 해당 번호의 status를 바꿈 (api전)
-  const handleButton = (index) => {
-    setIsOn((prevState) => {
-      const updatedStatus = [...prevState];
-      updatedStatus[index] = {
-        ...updatedStatus[index],
-        status: !updatedStatus[index].status,
-      };
-      return updatedStatus;
-    });
-  };
-
   // SPOTMini on/off API
   const sendSPOTMiniControl = async (index) => {
     const url = import.meta.env.VITE_API_POST_SPOTMINI;
-    const newState = !isOn[index].state; // 현재 상태의 반대로
     const isConferenceRoomAirConditioner =
       conferenceRoom && isOn[index].subName === "에어컨";
     const keys = isConferenceRoomAirConditioner ? '["CS_2"]' : '["CS_1"]';
@@ -63,7 +49,6 @@ export default function SPOTMiniCard({ name, agt, data, me }) {
 
       if (response.status === 200 && response.data.status === "ok") {
         console.log("Spotmini POST API 테스트 성공", response);
-        // 상태 변경 (필요한가?)
         setIsOn((prevState) => {
           const updatedStatus = [...prevState];
           updatedStatus[index] = {

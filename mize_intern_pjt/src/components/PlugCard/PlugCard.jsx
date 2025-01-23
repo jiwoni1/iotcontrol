@@ -25,8 +25,7 @@ export default function PlugCard({ name, agt, data, me }) {
 
   // Plug on/off API
   const sendPlugControl = async () => {
-    const url = "https://192.168.0.90:3008/control";
-    // const url = import.meta.env.VITE_API_PLUG_POLAR_MOBILE;
+    const url = import.meta.env.VITE_API_PLUG_POLAR;
     const targetSwitch = "P1";
     const newState = !isOn; // 현재 상태의 반대로
     const type = newState ? "1" : "0";
