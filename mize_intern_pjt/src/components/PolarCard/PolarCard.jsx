@@ -56,7 +56,7 @@ export default function PolarCard({ data, name, agt, me }) {
 
   // Polar on/off API
   const sendPolarControl = async (index) => {
-    const url = import.meta.env.VITE_API_PLUG_POLAR;
+    const url = import.meta.env.VITE_API_POST_PLUG_POLAR;
     const targetSwitch = index === 0 ? "P1" : "P2"; // 대상 스위치 결정
     const newState = !isOn[index].state; // 현재 상태의 반대로
     const type = newState ? "0x81" : "0x80";
