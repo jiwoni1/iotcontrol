@@ -57,7 +57,7 @@ export default function Login() {
           headers: { "Content-Type": "application/json" },
         }
       );
-      if (res.status === 200 && res.data === "success") {
+      if (res.status === 200 && res.data.message === "success") {
         // setUserId(loginInput.userId); // recoil 상태에 저장
         localStorage.setItem(
           "userId",
@@ -67,7 +67,7 @@ export default function Login() {
         nav("/home"); // 홈 화면으로 이동
         console.log(res.data);
       } else {
-        console.log("안돼");
+        console.log(res);
         setError(
           `아이디 또는 비밀번호가 잘못 되었습니다. 
           아이디와 비밀번호를 정확히 입력해 주세요.`
@@ -162,8 +162,8 @@ export default function Login() {
         {/* 로그인 성공 시 홈 페이지로 이동 */}
         {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}{" "}
         {/* 에러 메시지 */}
-        {/* <Styled.LoginButton onClick={onLogin}>로그인</Styled.LoginButton> */}
-        <Styled.LoginButton onClick={onLoginTemp}>로그인</Styled.LoginButton>
+        <Styled.LoginButton onClick={onLogin}>로그인</Styled.LoginButton>
+        {/* <Styled.LoginButton onClick={onLoginTemp}>로그인</Styled.LoginButton> */}
       </Styled.LoginWrapper>
     </Styled.Wrapper>
   );
