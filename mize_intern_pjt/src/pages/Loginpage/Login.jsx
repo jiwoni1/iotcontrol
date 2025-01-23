@@ -87,7 +87,27 @@ export default function Login() {
       setError("아이디와 비밀번호를 입력해주세요.");
       return;
     }
-    nav("/home");
+    // db 연결 안됐을 때 대비
+    const validUserId = "user";
+    const validPassword = "1234";
+
+    // 유효성 검사
+    if (
+      loginInput.userId === validUserId &&
+      loginInput.password === validPassword
+    ) {
+      localStorage.setItem(
+        "userId",
+        JSON.stringify({ userId: loginInput.userId })
+      );
+      localStorage.setItem("logined", JSON.stringify({ logined: true })); // 로그인 상태 저장
+      setError(""); // 에러 메시지 초기화
+      nav("/home"); // 홈 화면으로 이동
+    } else {
+      setError(`아이디 또는 비밀번호가 잘못 되었습니다. 
+        아이디와 비밀번호를 정확히 입력해 주세요.`);
+    }
+    // nav("/home");
   };
 
   return (
@@ -141,6 +161,7 @@ export default function Login() {
         {/* 로그인 성공 시 홈 페이지로 이동 */}
         {error && <Styled.ErrorMessage>{error}</Styled.ErrorMessage>}{" "}
         {/* 에러 메시지 */}
+        {/* <Styled.LoginButton onClick={onLogin}>로그인</Styled.LoginButton> */}
         <Styled.LoginButton onClick={onLoginTemp}>로그인</Styled.LoginButton>
       </Styled.LoginWrapper>
     </Styled.Wrapper>

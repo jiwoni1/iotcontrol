@@ -142,6 +142,8 @@ export default function Home() {
   // 로그아웃 처리
   const handleLogout = () => {
     localStorage.removeItem("userId"); // 사용자 ID 삭제
+    localStorage.removeItem("logined"); // 로그인 여부 삭제
+
     nav("/"); // 로그인 페이지로 이동
   };
 
