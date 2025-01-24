@@ -5,17 +5,9 @@ import Login from "./pages/Loginpage/Login";
 import Layout from "./Layout";
 import "./App.css";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import RedirectIfLoggedIn from "./routes/RedirectIfLoggedIn";
 
 function App() {
-  // 로그인 상태 유지(자동로그인)
-  // const setUserId = useSetRecoilState(userIdState);
-
-  // useEffect(() => {
-  //   const storedUserId = localStorage.getItem("userId");
-  //   if (storedUserId) {
-  //     setUserId(storedUserId);
-  //   }
-  // }, [setUserId]);
   return (
     <Layout>
       <Routes>
@@ -28,8 +20,15 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Login />} />
+        {/* Login 페이지는 로그인 상태인 사용자는 접근 불가 */}
+        <Route
+          path="/"
+          element={
+            <RedirectIfLoggedIn>
+              <Login />
+            </RedirectIfLoggedIn>
+          }
+        />
       </Routes>
     </Layout>
   );

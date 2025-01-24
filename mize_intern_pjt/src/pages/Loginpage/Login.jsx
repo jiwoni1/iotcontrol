@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as Styled from "./Login_style";
@@ -59,7 +59,7 @@ export default function Login() {
           JSON.stringify({ userId: loginInput.userId })
         );
         localStorage.setItem("logined", JSON.stringify({ logined: true })); // local storage에 로그인 상태 저장
-        nav("/home"); // 홈 화면으로 이동
+        nav("/home", { replace: true }); // 홈 화면으로 이동, 히스토리 스택 삭제
         console.log(res.data);
       } else {
         console.log(res);
