@@ -1,83 +1,13 @@
-# React + Vite
+배포주소: https://iotcontrol.vercel.app/
+로그인 ID: user
+로그인 PW: 1234
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### <서버 키는 법>
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-```
-mize_intern_pjt
-├─ .eslintrc.cjs
-├─ .gitignore
-├─ index.html
-├─ package-lock.json
-├─ package.json
-├─ public
-│  ├─ favicon.svg
-│  ├─ icon-192x192.png
-│  └─ icon-512x512.png
-├─ pwa-assets.config.js
-├─ README.md
-├─ src
-│  ├─ App.css
-│  ├─ App.jsx
-│  ├─ assets
-│  │  ├─ aircondition.png
-│  │  ├─ id_icon.png
-│  │  ├─ light.png
-│  │  ├─ lightbulb.png
-│  │  ├─ newaircondition.png
-│  │  ├─ power.png
-│  │  ├─ pw_icon.png
-│  │  ├─ react.svg
-│  │  ├─ remotecontrol.png
-│  │  ├─ sensor.png
-│  │  └─ tv.png
-│  ├─ components
-│  │  ├─ Card
-│  │  │  ├─ Card.jsx
-│  │  │  └─ Card_style.jsx
-│  │  ├─ EnvironmentalSensorCard
-│  │  │  ├─ EnvironmentalSensorCard.jsx
-│  │  │  └─ EnvironmentalSensorCard_style.jsx
-│  │  ├─ Modal
-│  │  │  ├─ FilterModal.jsx
-│  │  │  └─ FilterModal_style.jsx
-│  │  ├─ PlugPresenceCard
-│  │  │  ├─ PlugPresenceCard.jsx
-│  │  │  └─ PlugPresenceCard_style.jsx
-│  │  └─ PolarSPOTMiniCard
-│  │     ├─ PolarSPOTMiniCard.jsx
-│  │     └─ PolarSPOTMiniCard_style.jsx
-│  ├─ index.css
-│  ├─ Layout.jsx
-│  ├─ main.jsx
-│  ├─ pages
-│  │  ├─ homepage
-│  │  │  ├─ devices
-│  │  │  │  ├─ Devices.jsx
-│  │  │  │  ├─ Devices_style.jsx
-│  │  │  │  └─ test.js
-│  │  │  ├─ Filter
-│  │  │  │  ├─ Filter.jsx
-│  │  │  │  └─ Filter_style.jsx
-│  │  │  ├─ Header
-│  │  │  │  ├─ Header.jsx
-│  │  │  │  └─ Header_style.jsx
-│  │  │  ├─ Home.jsx
-│  │  │  └─ Home_style.jsx
-│  │  └─ loginpage
-│  │     ├─ Login.jsx
-│  │     └─ Login_style.jsx
-│  ├─ PWABadge.css
-│  ├─ PWABadge.jsx
-│  └─ styles
-│     ├─ colors
-│     │  └─ index.js
-│     └─ fonts
-│        └─ index.js
-└─ vite.config.js
-
-```
+1. Mize_Intern_PJT/BE/mize-intern-pjt/src/main/java/com/mize/iotcontroller 경로 이동
+2. 3개의 터미널 창 열기
+3. 터미널에서 각각 파일 실행시키기
+   3-1. node data.js
+   3-2. node controller.js
+   3-3. node SPOTcontroller.js
+4. 각각 "HTTPS API endpoint available at https://192.168.0.xx:<각각 포트번호>/<주소>" 문구가 뜨면 완료

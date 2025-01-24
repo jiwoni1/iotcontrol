@@ -11,17 +11,13 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  padding: 0px 0px 13px 13px; // %로 수정?
+  padding: 0px 0px 13px 13px;
   gap: 10%;
   margin-bottom: 5%;
 `;
 
 export const Top = styled.div`
   height: 55%;
-  /* display: flex;
-  align-items: center; */
-  /* justify-content: center; */
-  /* background-color: rgb(163, 102, 102); */
 `;
 
 export const Bottom = styled.div`
@@ -29,7 +25,6 @@ export const Bottom = styled.div`
   flex-direction: column;
   flex-grow: 1;
   gap: 7%;
-  /* background-color: #dbdbdb; */
 `;
 
 export const InfoText = styled.div`

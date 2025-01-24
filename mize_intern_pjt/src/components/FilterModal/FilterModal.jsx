@@ -74,7 +74,6 @@ export default function FilterModal({
                 $isSelected={selectedRoom === room}
                 onClick={() => handleRoomClick(room)} // 하위 방 선택
               >
-                {/* 좀 하드코딩.. */}
                 {room === "1번"
                   ? "1번 소회의실"
                   : room === "2번"

@@ -1,6 +1,4 @@
 import { useEffect } from "react";
-// import { RecoilRoot, useSetRecoilState } from "recoil";
-// import { userIdState } from "./recoil/atoms/userAtom";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Homepage/Home";
 import Login from "./pages/Loginpage/Login";
@@ -22,14 +20,14 @@ function App() {
     <Layout>
       <Routes>
         {/* home은 로그인한 사용자만 접근가능 */}
-        {/* <Route
-            path="/home"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          /> */}
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/home" element={<Home />} />
         <Route path="/" element={<Login />} />
       </Routes>

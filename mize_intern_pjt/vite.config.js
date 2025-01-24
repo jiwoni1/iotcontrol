@@ -2,7 +2,6 @@ import { VitePWA } from "vite-plugin-pwa";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import mkcert from "vite-plugin-mkcert";
-import os from "os"; // 네트워크 인터페이스 정보 가져오기
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {

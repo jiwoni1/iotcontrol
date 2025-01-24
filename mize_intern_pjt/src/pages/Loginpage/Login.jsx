@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { userIdState } from "../../recoil/atoms/userAtom";
 import axios from "axios";
 import * as Styled from "./Login_style";
 import idIcon from "../../assets/id_icon.png";
@@ -15,7 +13,6 @@ export default function Login() {
     userId: "",
     password: "",
   });
-  // const [userId, setUserId] = useRecoilState(userIdState); // recoil 상태
   const [error, setError] = useState(""); // 에러 메시지 상태
 
   const handleInputChange = (e) => {
@@ -39,12 +36,11 @@ export default function Login() {
     }));
   };
 
-  // API 연결 필요
-  // const url = import.meta.env.VITE_API_POST_LOGIN;
-  const url = "https://192.168.0.90:3005/login";
+  // API 연결
+  const url = import.meta.env.VITE_API_POST_LOGIN;
 
   const onLogin = async (e) => {
-    e.preventDefault(); // 왜 쓰는거지?
+    e.preventDefault();
 
     try {
       const res = await axios.post(
@@ -58,7 +54,6 @@ export default function Login() {
         }
       );
       if (res.status === 200 && res.data.message === "success") {
-        // setUserId(loginInput.userId); // recoil 상태에 저장
         localStorage.setItem(
           "userId",
           JSON.stringify({ userId: loginInput.userId })
@@ -82,7 +77,7 @@ export default function Login() {
     }
   };
 
-  // 예비 버튼
+  // API 연결 전 예비 버튼
   const onLoginTemp = () => {
     if (!loginInput.userId || !loginInput.password) {
       setError("아이디와 비밀번호를 입력해주세요.");
@@ -108,7 +103,6 @@ export default function Login() {
       setError(`아이디 또는 비밀번호가 잘못 되었습니다. 
         아이디와 비밀번호를 정확히 입력해 주세요.`);
     }
-    // nav("/home");
   };
 
   return (
@@ -131,7 +125,7 @@ export default function Login() {
             <FontAwesomeIcon
               icon={faX}
               size="xs"
-              color="#837C7C" // !!!! pallet로 변경
+              color="#837C7C"
               onClick={handleClearUserId}
             />
           ) : (

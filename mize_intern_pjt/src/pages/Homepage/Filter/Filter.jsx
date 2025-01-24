@@ -6,12 +6,10 @@ import { PALETTE } from "@/styles/colors";
 import FilterModal from "../../../components/FilterModal/FilterModal";
 
 export default function Filter({ selectedFilter, roomInfo, onFilterChange }) {
-  // 모달 열 수 있는 메뉴바
   const [isModalOpen, setIsModalOpen] = useState(false);
   // 선택된 item로 자동 스크롤
   const selectedRoomRef = useRef(null);
 
-  // 모달 열리는 함수
   const onOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -35,8 +33,6 @@ export default function Filter({ selectedFilter, roomInfo, onFilterChange }) {
     }
   }, [selectedFilter.room]);
 
-  // console.log("Filter 컴포넌트 category", selectedFilter.category);
-
   return (
     <Styled.Wrapper>
       <Styled.SubRoomList>
@@ -48,7 +44,6 @@ export default function Filter({ selectedFilter, roomInfo, onFilterChange }) {
               onClick={() => handleRoomClick(room)}
               ref={selectedFilter.room === room ? selectedRoomRef : null} // 스크롤 이동
             >
-              {/* 좀 하드코딩.. */}
               {room === "1번"
                 ? "1번 소회의실"
                 : room === "2번"

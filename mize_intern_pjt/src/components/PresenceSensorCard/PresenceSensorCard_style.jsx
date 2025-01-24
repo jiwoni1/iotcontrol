@@ -7,13 +7,11 @@ export const Top = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* background-color: red; */
 `;
 
 export const Icon = styled.img`
   width: 45px;
   height: 45px;
-  /* margisn-top: 2%; */
 `;
 
 export const Button = styled.div`

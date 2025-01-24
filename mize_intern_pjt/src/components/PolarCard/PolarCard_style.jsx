@@ -7,15 +7,11 @@ export const Top = styled.div`
   display: flex;
   align-items: center;
   justify-content: end;
-  /* justify-content: space-between; */
-  /* background-color: red; */
   padding: 7%;
 `;
 
 export const Icon = styled.img`
   width: 50%;
-  /* height: 100%; */
-  /* margisn-top: 2%; */
   object-fit: scale-down;
 `;
 
@@ -39,10 +35,7 @@ export const Button = styled.div`
 
 export const ButtonContainer = styled.div`
   width: 35%;
-  /* height: 60%; */
   align-items: center;
-  /* justify-content: center; */
-  /* width: 100%; */
   height: 100%;
   display: flex;
   flex-direction: column;

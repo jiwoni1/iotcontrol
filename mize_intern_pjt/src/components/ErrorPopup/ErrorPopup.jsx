@@ -17,11 +17,7 @@ export default function ErrorPopup({ message, onClose }) {
       {/* 팝업 컨테이너 */}
       <Styled.PopupContainer>
         <p>{message}</p>
-        <Styled.Button onClick={onClose}>
-          {/* <Styled.ButtonText>확인</Styled.ButtonText>
-           */}
-          확인
-        </Styled.Button>
+        <Styled.Button onClick={onClose}>확인</Styled.Button>
       </Styled.PopupContainer>
     </>
   );

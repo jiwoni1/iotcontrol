@@ -6,8 +6,6 @@ import { useState, useCallback } from "react";
 import ErrorPopup from "../ErrorPopup/ErrorPopup";
 import axios from "axios";
 
-// 200 코드여도 failure면 popup주기
-
 export default function SPOTMiniCard({ name, agt, data, me }) {
   // 대회의실만 에어컨, tv 모두 다 있음
   const conferenceRoom = name === "대회의실 리모컨 제어";

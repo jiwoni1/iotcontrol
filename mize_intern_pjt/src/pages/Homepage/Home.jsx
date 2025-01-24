@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-// import { useRecoilValue } from "recoil";
-// import { userIdState } from "../../recoil/atoms/userAtom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as Styled from "./Home_style";
@@ -14,7 +12,6 @@ import Lottie from "lottie-react";
 export default function Home() {
   const nav = useNavigate();
   const dropdownRef = useRef(null);
-  // const userId = useRecoilValue(userIdState); // recoil 상태 읽기
   const [userId, setUserId] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false); // 로그아웃 드롭다운
   const [loading, setLoading] = useState(true); // 로딩 상태
@@ -103,22 +100,6 @@ export default function Home() {
     }
   }, []);
 
-  // 필터
-  // const handleFilterChange = (category, room) => {
-  //   if (category === "Basic") {
-  //     // 필터 선택 해제(모든 데이터 표시)
-  //     setFilteredDevices(allDevices);
-  //     setSelectedFilter({ category: "Basic", room: "모든 기기" });
-  //     return;
-  //   } else {
-  //     const filtered = allDevices.filter((device) => {
-  //       const roomName = device.name.split(" ")[0]; // name에서 방 이름 추출(띄어쓰기 전까지지)
-  //       return device.agt === category && roomName === room; // 선택된 방과 일치하는 데이터만 필터링
-  //     });
-  //     setFilteredDevices(filtered);
-  //     setSelectedFilter({ category, room });
-  //   }
-  // };
   const handleFilterChange = (category, room) => {
     setSelectedFilter({ category, room });
   };
@@ -149,11 +130,6 @@ export default function Home() {
     nav("/"); // 로그인 페이지로 이동
   };
 
-  // userId
-  // console.log(localStorage.getItem("userId"));
-  // const userIdTest = JSON.parse(localStorage.getItem("userId"));
-  // console.log(userId.userIdTest); // 실제 userId 값 출력
-
   // 드롭다운 토글
   const toggleDropdown = () => {
     setDropdownOpen((prev) => !prev);
@@ -165,7 +141,6 @@ export default function Home() {
         <Styled.Title>{title}</Styled.Title>
         <div ref={dropdownRef}>
           <Styled.UserId onClick={toggleDropdown}>
-            {/* {userId ? { userId } : "로그인이 필요합니다"} */}
             {dropdownOpen ? (
               <FontAwesomeIcon icon={faChevronUp} size="xs" color="black" />
             ) : (

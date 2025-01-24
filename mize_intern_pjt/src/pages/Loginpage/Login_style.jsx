@@ -11,7 +11,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* min-height: 100vh; */
 `;
 
 export const Title = styled.div`
@@ -21,7 +20,6 @@ export const Title = styled.div`
   font-weight: ${Noto_Sans_KR.bold.weight};
   color: ${PALETTE.MAIN_BLACK};
   line-height: 1.7; /* 줄 간격 조정 */
-  /* white-space: pre-line;  */
 
   span {
     display: block; /* 줄 바꿈 */
@@ -59,13 +57,11 @@ export const Icon = styled.img`
 `;
 
 export const LoginText = styled.input`
-  /* position: absolute; */
   width: 90%;
   height: 70%;
   padding: 10px 7px;
   border: 2px solid ${PALETTE.SUB_BLUE};
   border-radius: 5px;
-  /* margin-bottom: 5%; */
   background-color: ${PALETTE.SUB_BLUE};
   font-weight: ${Noto_Sans_KR.regular.weight};
 
@@ -76,9 +72,7 @@ export const LoginText = styled.input`
   }
 
   &:focus {
-    /* outline: 2px solid #d8d6d6; */
     outline: none;
-    /* border-color: #b0caec; */
   }
 `;
 
@@ -97,7 +91,6 @@ export const LoginButton = styled.div`
   margin-top: 10%;
   background-color: ${PALETTE.MAIN_BLUE};
   border-radius: 5px;
-  /* text-align: center; */
   font-weight: ${Noto_Sans_KR.semiBold.weight};
   font-size: 0.9rem;
   color: white;

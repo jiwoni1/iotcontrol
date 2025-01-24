@@ -14,7 +14,6 @@ export const Wrapper = styled.div`
   padding: 13px;
   gap: 20%;
   margin-bottom: 5%;
-  /* justify-content: space-between; */
 `;
 
 export const Top = styled.div`

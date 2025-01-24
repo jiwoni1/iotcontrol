@@ -8,15 +8,6 @@ import ErrorPopup from "../ErrorPopup/ErrorPopup";
 export default function PolarCard({ data, name, agt, me }) {
   // P3가 있으면 2구, 없으면 1구
   const isDual = data.P3 !== undefined;
-  // // 1구 2구에 따라 분리
-  // const initalState = isDual
-  //   ? [
-  //       { subName: "스위치1", state: data.P1?.val === 1 },
-  //       { subName: "스위치2", state: data.P2?.val === 1 },
-  //     ]
-  //   : [{ subName: "스위치1", state: data.P1?.val === 1 }];
-
-  // const [isOn, setIsOn] = useState(initalState);
 
   // 얕은 비교 떄문에 새로 배열 생성
   const [isOn, setIsOn] = useState(
@@ -74,7 +65,6 @@ export default function PolarCard({ data, name, agt, me }) {
       if (response.status === 200) {
         console.log("전등 POST API 테스트 성공", response.data);
 
-        // 상태 업데이트 (필요한가?)
         updateSwitchState(index, newState);
       } else {
         console.error("전등 POST API 호출 실패", response.data);

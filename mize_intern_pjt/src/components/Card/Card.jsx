@@ -6,10 +6,6 @@ export default function Card({
   firstStateText,
   secondStateText,
 }) {
-  const location = "김영훈 대표";
-  const typeName = "플러그";
-  const state = "꺼짐";
-
   return (
     <Styled.Wrapper>
       <Styled.Top>{children}</Styled.Top>

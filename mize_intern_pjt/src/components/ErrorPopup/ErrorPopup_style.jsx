@@ -31,7 +31,6 @@ export const Overlay = styled.div`
 
 export const Button = styled.button`
   background-color: ${PALETTE.SUB_BLACK};
-  /* background-color: #f9b2b2; */
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
